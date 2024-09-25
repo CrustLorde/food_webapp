@@ -1,0 +1,16 @@
+this._s=this._s||{};(function(_){var window=this;
+try{
+_.kf(_.$Ya);
+}catch(e){_._DumpException(e)}
+try{
+_.x("j9Yuyc");
+var s8g=function(a,b){switch(a.code){case 1:var c="permission_denied";break;case 2:c="location_unavailable";break;case 3:c="location_timeout";break;default:c="unknown_error"}a=new _.md(c,a.message);_.rg({serviceName:"g",methodName:b},a);return a},t8g=function(){var a=new _.md("feature_not_enabled","HTML5 geolocation permissions API missing.");_.rg({serviceName:"g",methodName:"getGeolocationPermissionState"},a);return a},u8g=function(a){var b=new _.md("feature_not_enabled","HTML5 geolocation API missing.");
+_.rg({serviceName:"g",methodName:a},b);return b},v8g=function(a){var b,c;return _.Kg(function(d){b=new _.c8g;switch(a.state){case "granted":return _.cj(b,4,1),d.return(b);case "denied":return _.cj(b,4,2),d.return(b);case "prompt":return _.cj(b,4,3),d.return(b);default:return c=new _.md("unknown_error","Invalid permission state '"+a.state+"'."),_.rg({serviceName:"g",methodName:"getGeolocationPermissionState"},c),d.return(Promise.reject(c))}})};var w8g=function(a){_.Rn.call(this,a.Ka)};_.G(w8g,_.Rn);w8g.Ha=_.Rn.Ha;_.k=w8g.prototype;_.k.isAvailable=function(){return!(!navigator||!navigator.geolocation)};_.k.xza=function(){return!0};_.k.yza=function(){var a,b;return!!((a=navigator)==null?0:(b=a.permissions)==null?0:b.query)};_.k.getCurrentLocation=function(){_.pg({serviceName:"g",methodName:"gcl"});return this.isAvailable()?new Promise(function(a,b){navigator.geolocation.getCurrentPosition(a,function(c){b(s8g(c,"gcl"))})}):Promise.reject(u8g("gcl"))};
+_.k.zNa=function(){var a=this;return _.Kg(function(b){_.pg({serviceName:"g",methodName:"getCurrentLocationWithOptions"});return a.isAvailable()&&a.xza()?b.return(new Promise(function(c,d){navigator.geolocation.getCurrentPosition(function(e){if(e.timestamp==null||e.coords==null)var f=null;else{f=new _.a8g;f=_.Jf(f,1,e.timestamp);e=e.coords;var g=_.Yi(f,2,e.latitude);g=_.Yi(g,3,e.longitude);_.Yi(g,4,e.accuracy);e.altitude!=null&&_.Yi(f,5,e.altitude);e.altitudeAccuracy!=null&&_.Yi(f,6,e.altitudeAccuracy);
+e.speed!=null&&f.setSpeed(e.speed);e.heading!=null&&_.Yi(f,7,e.heading)}f?c(f):(f=new _.md("unknown_error","Could not get geolocation information"),_.rg({serviceName:"g",methodName:"getCurrentLocationWithOptions"},f),d(f))},function(e){d(s8g(e,"getCurrentLocationWithOptions"))})})):b.return(Promise.reject(u8g("getCurrentLocationWithOptions")))})};
+_.k.r$a=function(){var a=this,b,c;return _.Kg(function(d){if(d.oa==1){_.pg({serviceName:"g",methodName:"getGeolocationPermissionState"});if(!a.isAvailable()||!a.yza())return d.return(Promise.reject(t8g()));_.Bg(d,2);return d.yield(navigator.permissions.query({name:"geolocation"}),4)}if(d.oa!=2)return b=d.Aa,d.return(v8g(b));c=_.Fg(d);if(c instanceof TypeError)d=d.return(Promise.reject(t8g()));else{var e=d.return,f=Promise,g=f.reject,h=new _.md("unknown_error",(c==null?void 0:c.message)||"Could not get geolocation permission information.");
+_.rg({serviceName:"g",methodName:"getGeolocationPermissionState"},h);d=e.call(d,g.call(f,h))}return d})};_.Un(_.$6a,w8g);
+_.y();
+}catch(e){_._DumpException(e)}
+})(this._s);
+// Google Inc.

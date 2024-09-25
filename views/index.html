@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thee Southern Fish House</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto+Slab:wght@400;700&family=Satisfy&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/logo.png" alt="Fish Seafood Restaurant Logo">
+        </div>
+        <nav>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-list">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#menu" class="nav-link">Menu</a></li>
+                <li><a href="#about" class="nav-link">About Us</a></li>
+                <li><a href="#reservation" class="nav-link">Reservation</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero" id="home">
+        <div class="hero-text">
+            <h1>Welcome to Fish!</h1>
+            <p>Delight in the ocean's bounty.</p>
+        </div>
+    </section>
+    <section class="about" id="about">
+        <h2>About Us</h2>
+        <p>Fish has been serving fresh, sustainably sourced seafood since 2000. Join us to experience gourmet dishes crafted by our renowned chefs.</p>
+    </section>
+    <section class="menu" id="menu">
+        <h2>Our Menu</h2>
+        <div class="menu-category">
+            <h3>All day Baskets</h3>
+            <ul>
+                <li>Catfish(fillets) - 2 pc southern style catfish fillet dinner or 1pc whole catfish dinner. Served with fries.i - $13.95</li>
+                <li>Pan Trout - Mississippi Southern style pan trout fillets. Served with fries. (Note: fish has bones) - $11.49</li>
+                <li>Pork Chop - A juicy, thick center cut pork chop seasoned and fried to perfection. Served with fries. - $10.49</li>
+                <li>Shrimp - 8pc shrimp dinner, season and golden fried. Served with fries. - $12.95</li>
+                <li>Chicken Tenders - $11.95</li>
+                <li>Wings - 6 pieces wings with fries - $12.95</li>
+                <li>Chicken-on-a-stick - Chicken layered with pickles and onions seasoned and fried on a stick. Served with fries - $12.49</li>
+                <li>Sausage Links - 2 southern Smoked sausage links sauced in our house bbq sauce - $8.95</li>
+            </ul>
+        </div>
+        <div class="menu-category">
+            <h3>All Day Dinners</h3>
+            <ul>
+                <li>Catfish - 4 pc southern style catfish fillet dinner or 2pc whole catfish dinner. Served with fries and salad with house dressing. - $16.95</li>
+                <li>Pan Trout - Mississippi Southern style pan trout fillets. Served with fries and salad with house dressing. (Note: fish has bones) - $14.95</li>
+                <li>2 Pieces Pork Chop - 2 Juicy, thick center cut pork chops seasoned and fried to perfection. Served with fries and salad with house made dressing. - 14.95</li>
+                <li>Shrimp - 12pc shrimp dinner, season and golden fried. Served with fries and salad with house dressing. - 16.95</li>
+                <li>Chicken Tenders - $13.95</li>
+                <li>Wings - 10 pieces - $14.95</li>
+            </ul>
+        </div>
+        <div class="menu-category">
+            <h3>Desserts</h3>
+            <ul>
+                <li>Sea Salt Caramel Gelato - $8</li>
+                <li>Blueberry Cheesecake - With a berry compote - $9</li>
+            </ul>
+        </div>
+    </section>
+    <section class="reservation" id="reservation">
+        <h2>Make a Reservation</h2>
+        <form id="reservation-form">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+            <label for="people">Number of People:</label>
+            <input type="number" id="people" name="people" min="1" max="10" required>
+            <button type="submit">Book Now</button>
+        </form>
+        <p id="reservation-message"></p>
+    </section>
+    <footer>
+        <p>Contact Us: 1 (214) 412-3454 | info@fishseafood.com</p>
+        <p>Follow us on social media for the latest updates!</p>
+    </footer>
+    <script>
+        document.getElementById('reservation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted');
+            
+            const formData = new FormData(this);
+            const reservationData = Object.fromEntries(formData);
+            console.log('Reservation data:', reservationData);
+
+            fetch('/api/reservations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reservationData),
+            })
+            .then(response => {
+                console.log('Response received:', response);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data);
+                document.getElementById('reservation-message').textContent = data.message;
+                this.reset(); // Reset the form
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                document.getElementById('reservation-message').textContent = 'An error occurred. Please try again.';
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('reservation-form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Form submitted!');
+                    console.log('Form submitted');
+                    // Rest of your code...
+                });
+            } else {
+                console.error('Reservation form not found');
+            }
+        });
+    </script>
+</body>
+</html>
